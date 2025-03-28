@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <style>
+        #registrationFormContainer {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #registrationFormContainer h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        #registrationForm label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+        #registrationForm input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        #registrationForm button {
+            width: 100%;
+            padding: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+        #registrationForm button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div id="registrationFormContainer">
+        <h2>Regístrese para obtener todo el programa gratuito</h2>
+        <form id="registrationForm">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" required placeholder="Ingresa tu nombre">
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required placeholder="Ingresa tu correo">
+
+            <label for="phone">Teléfono:</label>
+            <input type="tel" id="phone" name="phone" required placeholder="Ingresa tu teléfono" pattern="[0-9]{10}" title="Debe contener 10 dígitos">
+
+            <button type="submit">¡Sí, quiero registrarme!</button>
+        </form>
+    </div>
+
+    <script>
+        // Manejo del envío del formulario
+        document.getElementById('registrationForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value; // Captura el campo "phone"
+
+            console.log("Datos enviados:", { name, email, phone }); // Imprime los datos en la consola
+
+            try {
+                // Enviar datos al backend
+                const response = await fetch('http://localhost:3000/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, phone }) // Incluye el campo "phone"
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    console.log("✅ Registro exitoso:", data);
+                   window.location.href = "https://registro.zenacentrodecompetencia.com/registrocompleto/";
+                    document.getElementById('registrationForm').reset();
+                } else {
+                    console.error("❌ Error al registrar:", data);
+                    alert(`Error: ${data.error}`);
+                }
+            } catch (error) {
+                console.error("❌ Error inesperado:", error);
+                alert("Error inesperado al enviar el formulario.");
+            }
+        });
+    </script>
+</body>
+</html>
