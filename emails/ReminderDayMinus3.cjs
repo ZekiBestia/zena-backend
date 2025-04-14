@@ -1,7 +1,7 @@
 const React = require("react");
 const { Html, Head, Body, Text, Section, Container, Heading, Button, Link, Hr, Img } = require("@react-email/components");
 
-const ConfirmationEmail = ({ name }) => {
+const ReminderDayMinus3 = ({ name }) => {
     return React.createElement(
         Html,
         null,
@@ -13,7 +13,7 @@ const ConfirmationEmail = ({ name }) => {
                 Container,
                 { style: { maxWidth: '600px', margin: '0 auto', backgroundColor: '#ffffff', padding: '20px', borderRadius: '10px', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)' } },
 
-                // Banner en la parte superior
+                // Banner
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginBottom: '20px' } },
@@ -30,60 +30,35 @@ const ConfirmationEmail = ({ name }) => {
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } }, "¡Tu registro al Seminario “Plan de Carrera Profesional” ha sido confirmado!"),
+                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } }, "¡Faltan solo 3 días para el Seminario 'Plan de Carrera Profesional'!"),
                     React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, `Hola ${name},`)
                 ),
 
-                // Bienvenida
+                // Contenido principal
                 React.createElement(
                     Section,
                     null,
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Tu acceso al "),
-                    React.createElement(
-                        Text,
-                        { style: { fontWeight: 'bold', fontSize: '16px', lineHeight: '1.5' } },
-                        "Seminario Plan de Carrera Profesional"
-                    ),
-                    React.createElement(
-                        Text,
-                        { style: { fontSize: '16px', lineHeight: '1.5' } },
-                        " ha sido confirmado. Nos emociona acompañarte en este proceso que fortalecerá tus habilidades estratégicas y abrirá nuevas oportunidades en el mercado laboral."
-                    )
-                ),
-
-                // Detalles del seminario
-                React.createElement(
-                    Section,
-                    { style: { marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '15px', color: '#333', marginBottom: '10px' } }, "En este seminario, en colaboración con Microsoft y Open English, aprenderás:"),
-                    React.createElement(
-                        Text,
-                        { style: { fontSize: '16px', lineHeight: '1.5' } },
-                        "✅ Cómo estructurar un ",
-                        React.createElement(
-                            Text,
-                            { style: { fontWeight: 'bold', display: 'inline' } },
-                            "Plan de Carrera Profesional"
-                        ),
-                        " para acceder a mejores sueldos y posiciones de liderazgo."
-                    ),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "✅ Cómo las certificaciones internacionales pueden abrirte puertas en empresas globales."),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "✅ La importancia del inglés profesional para destacar en un entorno competitivo."),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "✅ Cómo aprovechar la inteligencia artificial y la tecnología para evaluar y potenciar tu perfil.")
+                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Estamos a solo 3 días de iniciar el Seminario 'Plan de Carrera Profesional', una oportunidad única para potenciar tu crecimiento profesional con el respaldo de Microsoft y Open English."),
+                    React.createElement(Text, { style: { marginTop: '10px', fontSize: '16px', lineHeight: '1.5' } }, "📌 Lo que aprenderás en este seminario:"),
+                    React.createElement(Text, null, "✅ Cómo estructurar un Plan de Carrera Profesional para acceder a mejores sueldos y posiciones de liderazgo."),
+                    React.createElement(Text, null, "✅ Cómo las certificaciones internacionales y herramientas digitales pueden abrirte puertas en empresas globales."),
+                    React.createElement(Text, null, "✅ Por qué las empresas valoran cada vez más el dominio del inglés profesional y cómo mejorar tus oportunidades laborales."),
+                    React.createElement(Text, null, "✅ Cómo usar la tecnología y la inteligencia artificial para evaluar y mejorar tus competencias."),
+                    React.createElement(Text, { style: { marginTop: '10px' } }, "🔹 Este seminario, en colaboración con Microsoft y Open English, te brindará las herramientas que necesitas para avanzar en tu carrera.")
                 ),
 
                 // Detalles del evento
                 React.createElement(
                     Section,
-                    { style: { marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '20px', color: '#333', marginBottom: '10px' } }, "📅 Detalles del Evento"),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "📍 Fecha: 21 de abril del 2025"),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "🕒 Hora: 7:00 pm"),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "💻 Plataforma: ZOOM"),
+                    { style: { marginTop: '20px' } },
+                    React.createElement(Heading, { style: { fontSize: '20px', color: '#333' } }, "📅 Detalles del Evento"),
+                    React.createElement(Text, null, "📍 Fecha: 21 de abril del 2025"),
+                    React.createElement(Text, null, "🕒 Hora: 7:00 pm"),
+                    React.createElement(Text, null, "💻 Plataforma: ZOOM"),
                     React.createElement(
                         Button,
                         {
-                            href: "[Enlace de ZOOM]",
+                            href: "https://us06web.zoom.us/meeting/register/JOXo1ZF6TSCUqM6Xdkj5mQ",
                             style: {
                                 display: 'inline-block',
                                 marginTop: '10px',
@@ -105,22 +80,22 @@ const ConfirmationEmail = ({ name }) => {
                 // Próximos pasos
                 React.createElement(
                     Section,
-                    { style: { marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '20px', color: '#333', marginBottom: '10px' } }, "🔹 Próximos pasos para aprovechar al máximo:"),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "✔ Revisa tu correo para recibir detalles y recordatorios."),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "✔ Prepara tus preguntas y objetivos para optimizar tu aprendizaje."),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "✔ Verifica tu conexión a internet y acceso a ZOOM con anticipación.")
+                    { style: { marginTop: '20px' } },
+                    React.createElement(Heading, { style: { fontSize: '20px', color: '#333' } }, "🔹 Prepárate para sacar el máximo provecho:"),
+                    React.createElement(Text, null, "✔ Revisa tu correo para confirmar que tienes toda la información."),
+                    React.createElement(Text, null, "✔ Prepara tus preguntas y objetivos para una experiencia más efectiva."),
+                    React.createElement(Text, null, "✔ Verifica tu conexión a internet y acceso a ZOOM con anticipación.")
                 ),
 
                 // Asistencia
                 React.createElement(
                     Section,
-                    { style: { marginBottom: '20px' } },
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "📲 ¿Necesitas asistencia? Contáctanos:"),
+                    { style: { marginTop: '20px' } },
+                    React.createElement(Text, null, "📲 ¿Tienes dudas? Escríbenos por WhatsApp o correo electrónico."),
                     React.createElement(
                         Link,
                         {
-                            href: "[Enlace de WhatsApp]",
+                            href: "https://wa.link/o5i8ti",
                             style: {
                                 display: 'inline-block',
                                 marginTop: '10px',
@@ -139,38 +114,30 @@ const ConfirmationEmail = ({ name }) => {
                     )
                 ),
 
-                // Despedida con firma y redes sociales
+                // Firma ZENA
                 React.createElement(
                     Section,
-                    { style: { textAlign: 'center', marginBottom: '20px' } },
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, `Nos vemos en la primera sesión el 21 de abril del 2025 por ZOOM. ¡Tu crecimiento profesional comienza ahora!`),
+                    { style: { textAlign: 'center', marginBottom: '20px', marginTop: '30px' } },
+                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Nos vemos en 3 días en ZOOM. ¡No dejes pasar la oportunidad de llevar tu carrera al siguiente nivel!"),
                     React.createElement(Hr, { style: { borderColor: '#ddd', margin: '20px 0' } }),
-
-                    // Logo de Zena centrado y más grande
                     React.createElement(Img, {
                         src: "https://kubsycsxqsuoevqckjkm.supabase.co/storage/v1/object/public/PCP//Firma.png",
                         alt: "Firma de Zena",
                         style: {
-                            maxWidth: '100%', // Ocupa todo el ancho disponible
-                            width: '400px',   // Tamaño más grande
-                            height: 'auto',   // Mantiene la proporción
-                            margin: '20px auto', // Espaciado superior e inferior
-                            display: 'block'  // Centrado
+                            maxWidth: '100%',
+                            width: '400px',
+                            height: 'auto',
+                            margin: '20px auto',
+                            display: 'block'
                         }
                     }),
-                    // Firma profesional
-                    React.createElement(Text, { style: { fontSize: '14px', color: '#777', margin: '5px 0' } }, "Atentamente,"),
-                    React.createElement(Text, { style: { fontSize: '14px', color: '#777', margin: '5px 0' } }, "Ana Cristina Cara García"),
-                    React.createElement(Text, { style: { fontSize: '14px', color: '#777', margin: '5px 0' } }, "Atención a cliente"),
-                    React.createElement(Text, { style: { fontSize: '14px', color: '#777', margin: '5px 0' } }, "Centro de competencias ZENA"),
-
-                    // Iconos de redes sociales
+                   
                     React.createElement(
                         Section,
                         { style: { textAlign: 'center', marginTop: '20px' } },
                         React.createElement(
                             Link,
-                            { href: "https://facebook.com", style: { margin: '0 5px', textDecoration: 'none' } },
+                            { href: "https://www.facebook.com/CentroDeCompetenciasZena", style: { margin: '0 5px', textDecoration: 'none' } },
                             React.createElement(Img, {
                                 src: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
                                 alt: "Facebook",
@@ -181,10 +148,10 @@ const ConfirmationEmail = ({ name }) => {
                         ),
                         React.createElement(
                             Link,
-                            { href: "https://twitter.com", style: { margin: '0 5px', textDecoration: 'none' } },
+                            { href: "https://t.me/+TOkq1Pvv8YUzZmEx", style: { margin: '0 5px', textDecoration: 'none' } },
                             React.createElement(Img, {
-                                src: "https://cdn-icons-png.flaticon.com/512/124/124021.png",
-                                alt: "Twitter",
+                                src: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png", 
+                                alt: "Telegram",
                                 width: "24",
                                 height: "24",
                                 style: { display: 'inline-block' }
@@ -192,18 +159,16 @@ const ConfirmationEmail = ({ name }) => {
                         ),
                         React.createElement(
                             Link,
-                            { href: "https://instagram.com", style: { margin: '0 5px', textDecoration: 'none' } },
+                            { href: "https://wa.link/k0g5kn", style: { margin: '0 5px', textDecoration: 'none' } },
                             React.createElement(Img, {
-                                src: "https://cdn-icons-png.flaticon.com/512/174/174855.png",
-                                alt: "Instagram",
+                                src: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
+                                alt: "Whatsapp",
                                 width: "24",
                                 height: "24",
                                 style: { display: 'inline-block' }
                             })
                         )
                     ),
-
-                    // Aviso de confidencialidad
                     React.createElement(
                         Text,
                         { style: { fontSize: '12px', color: '#777', marginTop: '20px', lineHeight: '1.5' } },
@@ -217,4 +182,4 @@ const ConfirmationEmail = ({ name }) => {
     );
 };
 
-module.exports = ConfirmationEmail;
+module.exports = ReminderDayMinus3;
