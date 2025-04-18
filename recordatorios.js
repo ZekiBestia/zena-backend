@@ -18,7 +18,12 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const resend = new Resend(RESEND_API_KEY);
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const EVENT_DATE = new Date('2025-04-21T19:00:00-06:00'); // Hora CDMX
+const EVENT_DATE = new Date(
+  new Date('2025-04-21T19:00:00').toLocaleString('en-US', {
+    timeZone: 'America/Mexico_City',
+  })
+);
+
 
 async function fetchLeads() {
   const { data, error } = await supabase.from('leads').select('email, name');
