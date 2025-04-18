@@ -32,19 +32,23 @@ async function fetchLeads() {
 }
 
 function getDiffInDaysFromToday() {
-  const nowCDMXStr = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
-  const nowCDMX = new Date(nowCDMXStr);
-  const midnightCDMX = new Date(nowCDMX.getFullYear(), nowCDMX.getMonth(), nowCDMX.getDate());
+  const todayCDMX = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
+  const now = new Date(todayCDMX);
 
-  const diffTime = EVENT_DATE.getTime() - midnightCDMX.getTime();
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // ✅ CAMBIO AQUÍ
+  // Crea fechas fijas solo con año, mes, día (sin hora)
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const event = new Date(2025, 3, 21); // abril es mes 3 (0-indexed)
 
-  console.log(`🕒 Fecha y hora actual en CDMX: ${nowCDMX}`);
-  console.log(`🕒 Fecha del seminario: ${EVENT_DATE}`);
-  console.log(`📌 Días restantes al evento (ceil): ${diffDays}`);
+  const diffTime = event.getTime() - today.getTime();
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+  console.log(`🕒 Fecha actual en CDMX (sólo fecha): ${today}`);
+  console.log(`📅 Fecha del evento (sólo fecha): ${event}`);
+  console.log(`📌 Días restantes al evento: ${diffDays}`);
 
   return diffDays;
 }
+
 
 
 
@@ -115,7 +119,7 @@ async function checkAndSendReminders() {
 }
 
 // Programa para que corra todos los días a las 9:00 a.m. y también a las 7:00 p.m. el 21 de abril
-cron.schedule('20 11 * * *', async () => {
+cron.schedule('25 11 * * *', async () => {
   console.log('⏰ Ejecutando verificación de correo a las 9:00 a.m.');
   await checkAndSendReminders();
 }, { timezone: 'America/Mexico_City' });
