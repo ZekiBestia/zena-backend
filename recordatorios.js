@@ -27,11 +27,15 @@ async function fetchLeads() {
 }
 
 function getDiffInDaysFromToday() {
-  const now = new Date();
-  const startOfToday = new Date(now.toLocaleDateString('en-US', { timeZone: 'America/Mexico_City' }));
-  const diffTime = EVENT_DATE.getTime() - startOfToday.getTime();
+  const nowCDMX = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
+  const dateCDMX = new Date(nowCDMX);
+  const midnightCDMX = new Date(dateCDMX.getFullYear(), dateCDMX.getMonth(), dateCDMX.getDate());
+
+  const diffTime = EVENT_DATE.getTime() - midnightCDMX.getTime();
   return Math.floor(diffTime / (1000 * 60 * 60 * 24));
 }
+
+
 
 function getDiffInMinutesFromNow() {
   const now = new Date();
