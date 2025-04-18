@@ -119,7 +119,7 @@ async function checkAndSendReminders() {
 }
 
 // Programa para que corra todos los días a las 9:00 a.m. y también a las 7:00 p.m. el 21 de abril
-cron.schedule('25 11 * * *', async () => {
+cron.schedule('30 11 * * *', async () => {
   console.log('⏰ Ejecutando verificación de correo a las 9:00 a.m.');
   await checkAndSendReminders();
 }, { timezone: 'America/Mexico_City' });
