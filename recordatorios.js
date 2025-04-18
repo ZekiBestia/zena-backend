@@ -27,13 +27,20 @@ async function fetchLeads() {
 }
 
 function getDiffInDaysFromToday() {
-  const nowCDMX = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
-  const dateCDMX = new Date(nowCDMX);
-  const midnightCDMX = new Date(dateCDMX.getFullYear(), dateCDMX.getMonth(), dateCDMX.getDate());
+  const nowCDMXStr = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
+  const nowCDMX = new Date(nowCDMXStr);
+  const midnightCDMX = new Date(nowCDMX.getFullYear(), nowCDMX.getMonth(), nowCDMX.getDate());
 
   const diffTime = EVENT_DATE.getTime() - midnightCDMX.getTime();
-  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); // ✅ CAMBIO AQUÍ
+
+  console.log(`🕒 Fecha y hora actual en CDMX: ${nowCDMX}`);
+  console.log(`🕒 Fecha del seminario: ${EVENT_DATE}`);
+  console.log(`📌 Días restantes al evento (ceil): ${diffDays}`);
+
+  return diffDays;
 }
+
 
 
 
@@ -103,7 +110,7 @@ async function checkAndSendReminders() {
 }
 
 // Programa para que corra todos los días a las 9:00 a.m. y también a las 7:00 p.m. el 21 de abril
-cron.schedule('0 11 * * *', async () => {
+cron.schedule('10 11 * * *', async () => {
   console.log('⏰ Ejecutando verificación de correo a las 9:00 a.m.');
   await checkAndSendReminders();
 }, { timezone: 'America/Mexico_City' });
