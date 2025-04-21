@@ -1,10 +1,6 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const Reminder3DaysEmail = require('./emails/ReminderDayMinus3.cjs');
-const Reminder2DaysEmail = require('./emails/ReminderDayMinus2.cjs');
-const Reminder1DayEmail = require('./emails/ReminderDayMinus1.cjs');
-const ReminderTodayEmail = require('./emails/ReminderToday.cjs');
 const ReminderLiveEmail = require('./emails/ReminderLiveNow.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
@@ -16,36 +12,7 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const resend = new Resend(RESEND_API_KEY);
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Fecha del evento (sólo fecha, sin hora para evitar desfase)
-const EVENT_DATE = new Date(
-  new Date('2025-04-21T19:00:00').toLocaleString('en-US', {
-    timeZone: 'America/Mexico_City',
-  })
-);
-
-async function fetchLeads() {
-  const { data, error } = await supabase.from('leads').select('email, name');
-  if (error) throw error;
-  return data;
-}
-
-function getDiffInDaysFromToday() {
-  const todayCDMX = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
-  const now = new Date(todayCDMX);
-
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const event = new Date(2025, 3, 21); // abril = mes 3
-
-  const diffTime = event.getTime() - today.getTime();
-  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
-
-  console.log(`🕒 Fecha actual CDMX: ${today}`);
-  console.log(`📅 Evento: ${event}`);
-  console.log(`📌 Días restantes: ${diffDays}`);
-
-  return diffDays;
-}
-
+// Función para obtener hora exacta CDMX
 function getHourCDMX() {
   const now = new Date();
   const cdmxTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
@@ -54,6 +21,12 @@ function getHourCDMX() {
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function fetchLeads() {
+  const { data, error } = await supabase.from('leads').select('email, name');
+  if (error) throw error;
+  return data;
 }
 
 async function sendReminder(templateComponent, subjectText) {
@@ -76,42 +49,25 @@ async function sendReminder(templateComponent, subjectText) {
   console.log(`✔ Envío finalizado: ${subjectText}`);
 }
 
-async function checkAndSendReminders() {
-  const daysLeft = getDiffInDaysFromToday();
-  const hour = getHourCDMX();
+async function sendLiveReminderIfApplicable() {
+  const now = new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
+  const date = new Date(now);
+  const isEventDay = date.getFullYear() === 2025 && date.getMonth() === 3 && date.getDate() === 21;
+  const hour = date.getHours();
 
-  switch (daysLeft) {
-    case 3:
-      await sendReminder(Reminder3DaysEmail, '¡Faltan 3 días para el Seminario!');
-      break;
-    case 2:
-      await sendReminder(Reminder2DaysEmail, '¡Faltan 2 días para el Seminario!');
-      break;
-    case 1:
-      await sendReminder(Reminder1DayEmail, '¡Mañana es el gran día!');
-      break;
-    case 0:
-      if (hour < 19) {
-        await sendReminder(ReminderTodayEmail, '¡Hoy es el Seminario "Plan de Carrera Profesional"!');
-      }
-      if (hour === 19) {
-        await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
-      }
-      break;
-    default:
-      console.log('ℹ️ No se debe enviar correo hoy.');
+  console.log(`📅 Fecha actual en CDMX: ${date}`);
+
+  if (isEventDay && hour === 19) {
+    await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
+  } else {
+    console.log('ℹ️ No se debe enviar el recordatorio en este momento.');
   }
 }
 
-// CRON: Ejecutar cada hora durante el día del evento
-cron.schedule('0 * * * *', async () => {
-  console.log('⏰ Ejecutando verificación de recordatorios (cada hora)');
-  await checkAndSendReminders();
+// Ejecutar exactamente a las 7:00 p.m. del 21 de abril
+cron.schedule('0 19 21 4 *', async () => {
+  console.log('⏰ Ejecutando recordatorio EN VIVO a las 7:00 p.m.');
+  await sendLiveReminderIfApplicable();
 }, { timezone: 'America/Mexico_City' });
 
-// También ejecutable manualmente
-if (require.main === module) {
-  checkAndSendReminders();
-}
-
-module.exports = { checkAndSendReminders };
+module.exports = { sendLiveReminderIfApplicable };
