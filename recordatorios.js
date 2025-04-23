@@ -52,12 +52,12 @@ async function sendReminder(templateComponent, subjectText) {
 async function sendLiveReminderIfApplicable() {
   const now = new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
   const date = new Date(now);
-  const isEventDay = date.getFullYear() === 2025 && date.getMonth() === 3 && date.getDate() === 21;
   const hour = date.getHours();
+  const minutes = date.getMinutes();
 
   console.log(`📅 Fecha actual en CDMX: ${date}`);
 
-  if (isEventDay && hour === 19) {
+  if (hour === 19 && minutes <= 10) {
     await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
   } else {
     console.log('ℹ️ No se debe enviar el recordatorio en este momento.');
@@ -65,8 +65,9 @@ async function sendLiveReminderIfApplicable() {
 }
 
 
+
 // Ejecutar exactamente a las 7:00 p.m. del 22 de abril
-cron.schedule('5 19 22 4 *', async () => {
+cron.schedule('8 19 22 4 *', async () => {
   console.log('⏰ Ejecutando recordatorio EN VIVO a las 7:00 p.m. (22 abril)');
   await sendLiveReminderIfApplicable();
 }, { timezone: 'America/Mexico_City' });
