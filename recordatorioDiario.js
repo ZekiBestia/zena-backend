@@ -2,7 +2,6 @@ require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
 const ReminderLiveEmail = require('./emails/ReminderLiveNow.cjs');
-const ReminderSesion2Disponible = require('./emails/ReminderSesion2Disponible.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -13,6 +12,7 @@ const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const resend = new Resend(RESEND_API_KEY);
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// Función para obtener hora exacta CDMX
 function getHourCDMX() {
   const now = new Date();
   const cdmxTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
@@ -64,16 +64,13 @@ async function sendLiveReminderIfApplicable() {
   }
 }
 
-// 🕖 Enviar correo de “Sesión 2 disponible” el 22 de abril a las 10:15 p.m.
-cron.schedule('17 22 22 4 *', async () => {
-  console.log('📩 Enviando correo: ¡Disponible la Sesión 2 del Seminario!');
-  await sendReminder(ReminderSesion2Disponible, '¡Disponible la Sesión 2 del Seminario Plan de Carrera Profesional!');
-}, { timezone: 'America/Mexico_City' });
 
-// 🕖 (Opcional) Envío en vivo anterior
+
+// Ejecutar exactamente a las 7:00 p.m. del 22 de abril
 cron.schedule('0 19 22 4 *', async () => {
   console.log('⏰ Ejecutando recordatorio EN VIVO a las 7:00 p.m. (22 abril)');
   await sendLiveReminderIfApplicable();
 }, { timezone: 'America/Mexico_City' });
+
 
 module.exports = { sendLiveReminderIfApplicable };
