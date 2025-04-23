@@ -1,42 +1,36 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const ReminderSession3Email = require('./emails/ReminderSession3.cjs');
+const ReminderLiveEmail = require('./emails/ReminderLiveNow.cjs');
 const { render } = require('@react-email/render');
+const cron = require('node-cron');
 
 // Configuración
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
 const resend = new Resend(RESEND_API_KEY);
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Función para obtener hora exacta CDMX
+function getHourCDMX() {
+  const now = new Date();
+  const cdmxTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+  return cdmxTime.getHours();
+}
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function isTodayApril2CDMX() {
-  const nowCDMX = new Date().toLocaleString("en-US", { timeZone: "America/Mexico_City" });
-  const today = new Date(nowCDMX);
-  return today.getFullYear() === 2025 && today.getMonth() === 3 && today.getDate() === 2;
-}
-
 async function fetchLeads() {
   const { data, error } = await supabase.from('leads').select('email, name');
-
   if (error) throw error;
-  return data || [];
+  return data;
 }
 
 async function sendReminder(templateComponent, subjectText) {
   const leads = await fetchLeads();
-
-  if (!leads.length) {
-    console.warn("⚠️ No hay leads para enviar correos.");
-    return;
-  }
-
   for (const lead of leads) {
     const html = await render(templateComponent({ name: lead.name }));
     try {
@@ -46,23 +40,43 @@ async function sendReminder(templateComponent, subjectText) {
         subject: subjectText,
         html,
       });
-      console.log(`✅ Correo enviado a ${lead.email}`);
+      console.log(`✅ Enviado a ${lead.email}`);
     } catch (error) {
-      console.error(`❌ Error al enviar a ${lead.email}:`, error.message);
+      console.error(`❌ Error con ${lead.email}:`, error.message);
     }
-
     await delay(500);
   }
-
-  console.log("✔ Todos los correos han sido enviados.");
+  console.log(`✔ Envío finalizado: ${subjectText}`);
 }
 
-// 🔁 Ejecutar solo si es 2 de abril (CDMX)
-(async () => {
-  if (isTodayApril2CDMX()) {
-    console.log("📅 Hoy es 2 de abril. Enviando recordatorio de la sesión 3.");
-    await sendReminder(ReminderSession3Email, '¡Hoy es la sesión 3 del Seminario Plan de Carrera Profesional!');
+async function sendLiveReminderIfApplicable() {
+  const now = new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
+  const date = new Date(now);
+  const hour = date.getHours();
+  const minutes = date.getMinutes();
+
+  console.log(`📅 Fecha actual en CDMX: ${date}`);
+
+ /* if (hour === 19 && minutes <= 10) {
+    await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
   } else {
-    console.log("⏹ Hoy NO es 2 de abril. No se envía nada.");
+    console.log('ℹ️ No se debe enviar el recordatorio en este momento.');
   }
-})();
+    */
+
+  async function sendLiveReminderIfApplicable() {
+    console.log('🚀 Enviando recordatorio EN VIVO – Sesión 3');
+    await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
+  }
+}
+
+
+
+// Ejecutar exactamente a las 7:00 p.m. del 23 de abril
+cron.schedule('0 19 23 4 *', async () => {
+  console.log('⏰ Ejecutando recordatorio EN VIVO a las 7:00 p.m. (23 abril)');
+  await sendLiveReminderIfApplicable();
+}, { timezone: 'America/Mexico_City' });
+
+
+module.exports = { sendLiveReminderIfApplicable };
