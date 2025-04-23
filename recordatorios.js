@@ -7,7 +7,7 @@ const cron = require('node-cron');
 
 // Configuración
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY; // Asegúrate que NO sea la anon key
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const resend = new Resend(RESEND_API_KEY);
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -58,16 +58,14 @@ async function sendReminder(templateComponent, subjectText) {
       console.error(`❌ Error al enviar a ${lead.email}:`, error.message);
     }
 
-    await delay(500); // Antispam
+    await delay(500);
   }
 
   console.log(`✔ Todos los correos han sido procesados: ${subjectText}`);
 }
 
-// Enviar "Sesión 2 disponible" hoy a las 10:20 p.m. (hora centro de México)
-cron.schedule('23 22 22 4 *', async () => {
+// ✅ Ejecutar inmediatamente al iniciar
+(async () => {
   console.log('📩 Enviando correo: ¡Disponible la Sesión 2 del Seminario!');
   await sendReminder(ReminderSesion2Disponible, '¡Disponible la Sesión 2 del Seminario Plan de Carrera Profesional!');
-}, { timezone: 'America/Mexico_City' });
-
-module.exports = { sendReminder };
+})();
