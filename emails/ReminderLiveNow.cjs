@@ -30,7 +30,7 @@ const ReminderLiveNow = ({ name }) => {
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } }, "Estamos en vivo: Conéctate ahora a la Sesión 1 del Seminario Plan de Carrera Profesional"),
+                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } }, "Estamos en vivo: Conéctate ahora a la Sesión 2 del Seminario Plan de Carrera Profesional"),
                     React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, `Hola ${name},`)
                 ),
 
@@ -38,7 +38,7 @@ const ReminderLiveNow = ({ name }) => {
                 React.createElement(
                     Section,
                     null,
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Ya estamos en vivo con la Sesión 1 del Seminario Plan de Carrera Profesional, organizado por Open English e ICEMéxico."),
+                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Ya estamos en vivo con la Sesión 2 del Seminario Plan de Carrera Profesional, organizado por Open English e ICEMéxico."),
                     React.createElement(Text, null, "En esta sesión conocerás el caso práctico de un profesionista que logró duplicar su salario gracias a un plan de carrera bien estructurado y enfocado en sus fortalezas y áreas de desarrollo."),
                     React.createElement(Text, null, "Aún estás a tiempo de ingresar y aprovechar al máximo esta oportunidad de crecimiento profesional.")
                 ),

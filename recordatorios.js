@@ -64,10 +64,11 @@ async function sendLiveReminderIfApplicable() {
   }
 }
 
-// Ejecutar exactamente a las 7:00 p.m. del 21 de abril
-cron.schedule('0 19 21 4 *', async () => {
-  console.log('⏰ Ejecutando recordatorio EN VIVO a las 7:00 p.m.');
+// Ejecutar exactamente a las 7:00 p.m. del 22 de abril
+cron.schedule('0 19 22 4 *', async () => {
+  console.log('⏰ Ejecutando recordatorio EN VIVO a las 7:00 p.m. (22 abril)');
   await sendLiveReminderIfApplicable();
 }, { timezone: 'America/Mexico_City' });
+
 
 module.exports = { sendLiveReminderIfApplicable };
