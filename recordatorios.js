@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { Resend } = require('resend');
-const ReminderSesion2 = require('./emails/ReminderSesion2.cjs');
+const ReminderSesion2 = require('./emails/ReminderSesion2Disponible.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -42,7 +42,7 @@ async function sendReminderToSinglePerson() {
 }
 
 // Ejecutar exactamente una vez el 23 de abril a las 7:09 p.m. CDMX
-cron.schedule('26 19 23 4 *', async () => {
+cron.schedule('29 19 23 4 *', async () => {
   console.log('⏰ Ejecutando envío individual a las 7:09 p.m. (23 abril)');
   await sendReminderToSinglePerson();
 }, { timezone: 'America/Mexico_City' });
