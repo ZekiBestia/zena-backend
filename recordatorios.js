@@ -57,16 +57,10 @@ async function sendLiveReminderIfApplicable() {
 
   console.log(`📅 Fecha actual en CDMX: ${date}`);
 
- /* if (hour === 19 && minutes <= 10) {
+  if (hour === 19 && minutes <= 10) {
     await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
   } else {
     console.log('ℹ️ No se debe enviar el recordatorio en este momento.');
-  }
-    */
-
-  async function sendLiveReminderIfApplicable() {
-    console.log('🚀 Enviando recordatorio EN VIVO – Sesión 3');
-    await sendReminder(ReminderLiveEmail, '🔴 ¡Estamos en vivo! Únete al Seminario "Plan de Carrera Profesional"');
   }
 }
 
