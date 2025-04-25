@@ -1,14 +1,21 @@
 const React = require("react");
 const { Html, Head, Body, Text, Section, Container, Heading, Button, Link, Hr, Img } = require("@react-email/components");
 
-const ReminderLiveNow = ({ name }) => {
+const ReminderLiveNowSesion4 = ({ name }) => {
     return React.createElement(
         Html,
         null,
         React.createElement(Head, null),
         React.createElement(
             Body,
-            { style: { fontFamily: 'Arial, sans-serif', backgroundColor: '#f9f9f9', padding: '20px', color: '#333' } },
+            {
+                style: {
+                    fontFamily: 'Arial, sans-serif',
+                    backgroundColor: '#f9f9f9',
+                    padding: '20px',
+                    color: '#333'
+                }
+            },
             React.createElement(
                 Container,
                 {
@@ -39,28 +46,29 @@ const ReminderLiveNow = ({ name }) => {
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } },
-                        "¡Conéctate ahora! Ya estamos en vivo – Sesión 3 del Seminario"),
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, `Hola ${name},`)
+                    React.createElement(Heading, {
+                        style: { fontSize: '24px', color: '#dc3545' }
+                    }, "¡Estamos en vivo! Únete ahora a la Sesión 4 del Seminario"),
+                    React.createElement(Text, {
+                        style: { fontSize: '16px', lineHeight: '1.5' }
+                    }, `Hola ${name},`)
                 ),
 
-                // Cuerpo actualizado
+                // Cuerpo
                 React.createElement(
                     Section,
                     null,
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } },
-                        "¡Ya estamos en vivo con la Sesión 3 del Seminario Plan de Carrera Profesional!"),
-                    React.createElement(Text, null,
-                        "Hoy aprenderás las técnicas más efectivas de negociación laboral, ideales tanto para entrevistas de nuevo ingreso como para solicitar un aumento de sueldo con seguridad, claridad y argumentos sólidos."),
-                    React.createElement(Text, null,
-                        "No te pierdas esta oportunidad para fortalecer tus habilidades y avanzar hacia tus metas profesionales.")
+                    React.createElement(Text, null, "Te informamos que ya estamos en vivo con la Sesión 4 del Seminario Plan de Carrera Profesional."),
+                    React.createElement(Text, null, "En esta sesión realizaremos un taller 100 % práctico, donde aprenderás a diseñar tu propio plan de carrera profesional utilizando herramientas de inteligencia artificial, con un enfoque completamente alineado al mercado laboral actual."),
+                    React.createElement(Text, null, "🗓 Fecha: Miércoles 24 de abril"),
+                    React.createElement(Text, null, "🕐 Hora: 7:00 p.m. (hora centro de México)")
                 ),
 
-                // Enlaces de acceso
+                // Enlaces de Zoom
                 React.createElement(
                     Section,
                     { style: { marginTop: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '18px', marginBottom: '10px' } }, "🔗 Ingresa ahora por Zoom:"),
+                    React.createElement(Heading, { style: { fontSize: '18px', marginBottom: '10px' } }, "🔗 Conéctate ahora:"),
                     React.createElement(
                         Button,
                         {
@@ -76,7 +84,7 @@ const ReminderLiveNow = ({ name }) => {
                                 textAlign: 'center'
                             }
                         },
-                        "👉 Da clic aquí para ingresar a la sala principal"
+                        "✅ Da clic para ingresar a la sala principal"
                     ),
                     React.createElement(
                         Button,
@@ -98,11 +106,17 @@ const ReminderLiveNow = ({ name }) => {
                     )
                 ),
 
-                // Firma y redes sociales
+                // Firma, redes sociales y aviso
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginTop: '30px' } },
+                    React.createElement(Text, { style: { fontSize: '16px', marginBottom: '10px' } },
+                        "No dejes pasar esta oportunidad para avanzar en tu desarrollo profesional."),
+                    React.createElement(Text, { style: { fontSize: '16px', fontWeight: 'bold' } },
+                        "¡Te esperamos en la sesión en vivo!"),
+
                     React.createElement(Hr, { style: { borderColor: '#ddd', margin: '20px 0' } }),
+
                     React.createElement(Img, {
                         src: "https://kubsycsxqsuoevqckjkm.supabase.co/storage/v1/object/public/PCP//Firma.png",
                         alt: "Firma de Zena",
@@ -114,6 +128,8 @@ const ReminderLiveNow = ({ name }) => {
                             display: 'block'
                         }
                     }),
+
+                    // Redes sociales
                     React.createElement(
                         Section,
                         { style: { textAlign: 'center', marginTop: '20px' } },
@@ -151,17 +167,26 @@ const ReminderLiveNow = ({ name }) => {
                             })
                         )
                     ),
+
+                    // Aviso de privacidad
                     React.createElement(
                         Text,
-                        { style: { fontSize: '12px', color: '#777', marginTop: '20px', lineHeight: '1.5' } },
+                        {
+                            style: {
+                                fontSize: '12px',
+                                color: '#777',
+                                marginTop: '20px',
+                                lineHeight: '1.5'
+                            }
+                        },
                         "AVISO DE CONFIDENCIALIDAD:",
-                      React.createElement('br'),
-                                             "Este correo electrónico, incluyendo en su caso, los archivos adjuntos al mismo, pueden contener información de carácter confidencial y/o privilegiada, y se envían a la atención única y exclusivamente de la persona y/o entidad a quien va dirigido. La copia, revisión, uso, revelación y/o distribución de dicha información confidencial sin la autorización por escrito está prohibida. Si usted no es el destinatario a quien se dirige el presente correo, favor de contactar al remitente respondiendo al presente correo y eliminar incluyendo sus archivos, así como cualquier copia del mismo."
-                                         )
+                        React.createElement('br'),
+                        "Este correo electrónico, incluyendo en su caso, los archivos adjuntos al mismo, pueden contener información de carácter confidencial y/o privilegiada, y se envían a la atención única y exclusivamente de la persona y/o entidad a quien va dirigido. La copia, revisión, uso, revelación y/o distribución de dicha información confidencial sin la autorización por escrito está prohibida. Si usted no es el destinatario a quien se dirige el presente correo, favor de contactar al remitente respondiendo al presente correo y eliminar incluyendo sus archivos, así como cualquier copia del mismo."
+                    )
                 )
             )
         )
     );
 };
 
-module.exports = ReminderLiveNow;
+module.exports = ReminderLiveNowSesion4;
