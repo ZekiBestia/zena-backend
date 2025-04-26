@@ -16,8 +16,8 @@ function delay(ms) {
 // Envío directo a una sola persona
 async function sendReminderToSinglePerson() {
   const recipient = {
-    name: 'Susana',
-    email: 'sromerofarrugia@hotmail.com',
+    name: 'Verónica Rodriguez',
+    email: 'vrsmp1975@gmail.com',
   };
 
   console.log(`📩 Preparando envío individual a ${recipient.email}...`);
