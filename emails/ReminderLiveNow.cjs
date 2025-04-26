@@ -1,7 +1,7 @@
 const React = require("react");
 const { Html, Head, Body, Text, Section, Container, Heading, Button, Link, Hr, Img } = require("@react-email/components");
 
-const ReminderLiveNowSesion4 = ({ name }) => {
+const ReminderLiveNowSesion5Final = ({ name }) => {
     return React.createElement(
         Html,
         null,
@@ -48,27 +48,24 @@ const ReminderLiveNowSesion4 = ({ name }) => {
                     { style: { textAlign: 'center', marginBottom: '20px' } },
                     React.createElement(Heading, {
                         style: { fontSize: '24px', color: '#dc3545' }
-                    }, "¡Estamos en vivo! Únete ahora a la Sesión 4 del Seminario"),
+                    }, "¡Ya comenzó la sesión final del Seminario Plan de Carrera Profesional!"),
                     React.createElement(Text, {
                         style: { fontSize: '16px', lineHeight: '1.5' }
                     }, `Hola ${name},`)
                 ),
 
-                // Cuerpo
+                // Cuerpo del mensaje actualizado
                 React.createElement(
                     Section,
                     null,
-                    React.createElement(Text, null, "Te informamos que ya estamos en vivo con la Sesión 4 del Seminario Plan de Carrera Profesional."),
-                    React.createElement(Text, null, "En esta sesión realizaremos un taller 100 % práctico, donde aprenderás a diseñar tu propio plan de carrera profesional utilizando herramientas de inteligencia artificial, con un enfoque completamente alineado al mercado laboral actual."),
-                    React.createElement(Text, null, "🗓 Fecha: Miércoles 24 de abril"),
-                    React.createElement(Text, null, "🕐 Hora: 7:00 p.m. (hora centro de México)")
+                    React.createElement(Text, null, "Conéctate ahora mismo y descubre cómo destacar en el mercado laboral, qué están buscando las empresas y cómo prepararte para acceder a mejores oportunidades e ingresos más altos."),
+                    React.createElement(Text, null, "Enlace de acceso inmediato:")
                 ),
 
                 // Enlaces de Zoom
                 React.createElement(
                     Section,
                     { style: { marginTop: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '18px', marginBottom: '10px' } }, "🔗 Conéctate ahora:"),
                     React.createElement(
                         Button,
                         {
@@ -106,87 +103,87 @@ const ReminderLiveNowSesion4 = ({ name }) => {
                     )
                 ),
 
-                // Firma, redes sociales y aviso
+                // Cierre
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginTop: '30px' } },
                     React.createElement(Text, { style: { fontSize: '16px', marginBottom: '10px' } },
-                        "No dejes pasar esta oportunidad para avanzar en tu desarrollo profesional."),
+                        "No dejes pasar esta última oportunidad. Estamos en vivo ahora."),
                     React.createElement(Text, { style: { fontSize: '16px', fontWeight: 'bold' } },
-                        "¡Te esperamos en la sesión en vivo!"),
+                        "¡Te esperamos!")
+                ),
 
-                    React.createElement(Hr, { style: { borderColor: '#ddd', margin: '20px 0' } }),
+                // Firma
+                React.createElement(Hr, { style: { borderColor: '#ddd', margin: '20px 0' } }),
+                React.createElement(Img, {
+                    src: "https://kubsycsxqsuoevqckjkm.supabase.co/storage/v1/object/public/PCP//Firma.png",
+                    alt: "Firma de Zena",
+                    style: {
+                        maxWidth: '100%',
+                        width: '400px',
+                        height: 'auto',
+                        margin: '20px auto',
+                        display: 'block'
+                    }
+                }),
 
-                    React.createElement(Img, {
-                        src: "https://kubsycsxqsuoevqckjkm.supabase.co/storage/v1/object/public/PCP//Firma.png",
-                        alt: "Firma de Zena",
-                        style: {
-                            maxWidth: '100%',
-                            width: '400px',
-                            height: 'auto',
-                            margin: '20px auto',
-                            display: 'block'
-                        }
-                    }),
-
-                    // Redes sociales
+                // Redes sociales
+                React.createElement(
+                    Section,
+                    { style: { textAlign: 'center', marginTop: '20px' } },
                     React.createElement(
-                        Section,
-                        { style: { textAlign: 'center', marginTop: '20px' } },
-                        React.createElement(
-                            Link,
-                            { href: "https://www.facebook.com/CentroDeCompetenciasZena", style: { margin: '0 5px', textDecoration: 'none' } },
-                            React.createElement(Img, {
-                                src: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
-                                alt: "Facebook",
-                                width: "24",
-                                height: "24",
-                                style: { display: 'inline-block' }
-                            })
-                        ),
-                        React.createElement(
-                            Link,
-                            { href: "https://t.me/+TOkq1Pvv8YUzZmEx", style: { margin: '0 5px', textDecoration: 'none' } },
-                            React.createElement(Img, {
-                                src: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png",
-                                alt: "Telegram",
-                                width: "24",
-                                height: "24",
-                                style: { display: 'inline-block' }
-                            })
-                        ),
-                        React.createElement(
-                            Link,
-                            { href: "https://wa.link/k0g5kn", style: { margin: '0 5px', textDecoration: 'none' } },
-                            React.createElement(Img, {
-                                src: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
-                                alt: "Whatsapp",
-                                width: "24",
-                                height: "24",
-                                style: { display: 'inline-block' }
-                            })
-                        )
+                        Link,
+                        { href: "https://www.facebook.com/CentroDeCompetenciasZena", style: { margin: '0 5px', textDecoration: 'none' } },
+                        React.createElement(Img, {
+                            src: "https://cdn-icons-png.flaticon.com/512/124/124010.png",
+                            alt: "Facebook",
+                            width: "24",
+                            height: "24",
+                            style: { display: 'inline-block' }
+                        })
                     ),
-
-                    // Aviso de privacidad
                     React.createElement(
-                        Text,
-                        {
-                            style: {
-                                fontSize: '12px',
-                                color: '#777',
-                                marginTop: '20px',
-                                lineHeight: '1.5'
-                            }
-                        },
-                        "AVISO DE CONFIDENCIALIDAD:",
-                        React.createElement('br'),
-                        "Este correo electrónico, incluyendo en su caso, los archivos adjuntos al mismo, pueden contener información de carácter confidencial y/o privilegiada, y se envían a la atención única y exclusivamente de la persona y/o entidad a quien va dirigido. La copia, revisión, uso, revelación y/o distribución de dicha información confidencial sin la autorización por escrito está prohibida. Si usted no es el destinatario a quien se dirige el presente correo, favor de contactar al remitente respondiendo al presente correo y eliminar incluyendo sus archivos, así como cualquier copia del mismo."
+                        Link,
+                        { href: "https://t.me/+TOkq1Pvv8YUzZmEx", style: { margin: '0 5px', textDecoration: 'none' } },
+                        React.createElement(Img, {
+                            src: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png",
+                            alt: "Telegram",
+                            width: "24",
+                            height: "24",
+                            style: { display: 'inline-block' }
+                        })
+                    ),
+                    React.createElement(
+                        Link,
+                        { href: "https://wa.link/k0g5kn", style: { margin: '0 5px', textDecoration: 'none' } },
+                        React.createElement(Img, {
+                            src: "https://cdn-icons-png.flaticon.com/512/733/733585.png",
+                            alt: "Whatsapp",
+                            width: "24",
+                            height: "24",
+                            style: { display: 'inline-block' }
+                        })
                     )
+                ),
+
+                // Aviso de privacidad
+                React.createElement(
+                    Text,
+                    {
+                        style: {
+                            fontSize: '12px',
+                            color: '#777',
+                            marginTop: '20px',
+                            lineHeight: '1.5'
+                        }
+                    },
+                    "AVISO DE CONFIDENCIALIDAD:",
+                    React.createElement('br'),
+                    "Este correo electrónico, incluyendo en su caso, los archivos adjuntos al mismo, pueden contener información de carácter confidencial y/o privilegiada, y se envían a la atención única y exclusivamente de la persona y/o entidad a quien va dirigido. La copia, revisión, uso, revelación y/o distribución de dicha información confidencial sin la autorización por escrito está prohibida. Si usted no es el destinatario a quien se dirige el presente correo, favor de contactar al remitente respondiendo al presente correo y eliminar incluyendo sus archivos, así como cualquier copia del mismo."
                 )
             )
         )
     );
 };
 
-module.exports = ReminderLiveNowSesion4;
+module.exports = ReminderLiveNowSesion5Final;
