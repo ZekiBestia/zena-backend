@@ -161,7 +161,7 @@ const ConfirmationEmail = ({ name }) => {
           React.createElement(
             Button,
             {
-              href: "https://us06web.zoom.us/meeting/register/JOXo1ZF6TSCUqM6Xdkj5mQ",
+              href: "https://us06web.zoom.us/meeting/register/LmqIdW67TLWN-WyMfZKm9w#/registration",
               style: {
                 display: "inline-block",
                 marginTop: "10px",
@@ -179,27 +179,6 @@ const ConfirmationEmail = ({ name }) => {
             "👉 Accede a la sala principal por ZOOM"
           ),
 
-          // Botón sala secundaria
-          React.createElement(
-            Button,
-            {
-              href: "https://us06web.zoom.us/meeting/register/josihPlRQP6WFbEqHvQ6vQ",
-              style: {
-                display: "inline-block",
-                marginTop: "10px",
-                padding: "10px 30px",
-                backgroundColor: "#FF8800",
-                color: "#ffffff",
-                textDecoration: "none",
-                borderRadius: "5px",
-                fontSize: "16px",
-                width: "auto",
-                margin: "10px auto",
-                textAlign: "center",
-              },
-            },
-            "🔁 Accede a la sala secundaria"
-          )
         ),
 
         // Próximos pasos
@@ -264,7 +243,7 @@ const ConfirmationEmail = ({ name }) => {
           React.createElement(Text, {
             style: { fontSize: "16px", lineHeight: "1.5" },
           },
-            "Nos vemos en la primera sesión el 21 de abril del 2025 por ZOOM. ¡Tu crecimiento profesional comienza ahora!"
+            "Nos vemos en la primera sesión el 26 de Mayo del 2025 por ZOOM. ¡Tu crecimiento profesional comienza ahora!"
           ),
           React.createElement(Hr, { style: { borderColor: "#ddd", margin: "20px 0" } }),
 
