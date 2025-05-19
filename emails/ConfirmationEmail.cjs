@@ -149,7 +149,7 @@ const ConfirmationEmail = ({ name }) => {
           ),
           React.createElement(Text, {
             style: { fontSize: "16px", lineHeight: "1.5" },
-          }, "📍 Fecha: 21 de abril del 2025"),
+          }, "📍 Fecha: 26 de Mayo del 2025"),
           React.createElement(Text, {
             style: { fontSize: "16px", lineHeight: "1.5" },
           }, "🕒 Hora: 7:00 pm"),
