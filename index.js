@@ -23,7 +23,6 @@ app.use(express.json());
 
 app.post('/register', async (req, res) => {
   console.log("📩 Datos recibidos:", req.body);
-
   const { name, email, phone } = req.body;
 
   if (!name || !email || !phone) {
@@ -31,7 +30,7 @@ app.post('/register', async (req, res) => {
   }
 
   try {
-    // Verificar si el correo ya está registrado
+    // Verificar si ya existe
     const { data: existingUser, error: searchError } = await supabase
       .from('leads')
       .select('email')
@@ -47,27 +46,21 @@ app.post('/register', async (req, res) => {
       return res.status(400).json({ error: '⚠️ El correo electrónico ya está registrado.' });
     }
 
-    // Obtener el último destinatario registrado en la tabla leads
-    const { data: lastLead, error: lastLeadError } = await supabase
+    // Obtener el último destinatario desde el último lead
+    const { data: lastLeads, error: lastLeadError } = await supabase
       .from('leads')
       .select('ultimo_destinatario')
       .order('id', { ascending: false })
-      .limit(1)
-      .single();
+      .limit(1);
 
-    if (lastLeadError) {
-      console.error("⚠️ Error al obtener el último destinatario:", lastLeadError);
-      return res.status(500).json({ error: 'Error al verificar último destinatario.' });
-    }
+    const last = lastLeads?.[0]?.ultimo_destinatario || "ana";
+    const nuevoTurno = last === "ana" ? "zeki" : "ana";
 
-    const lastTurn = lastLead?.ultimo_destinatario || 'ana';
-    const nuevoTurno = lastTurn === 'ana' ? 'zeki' : 'ana';
+    const linkWhatsapp = nuevoTurno === "ana"
+      ? "https://wa.link/ts8jkl"
+      : "https://wa.link/kl4qxg";
 
-    const linkWhatsapp = nuevoTurno === 'ana'
-      ? 'https://wa.link/ts8jkl' // Ana
-      : 'https://wa.link/kl4qxg'; // Zeki
-
-    // Guardar los datos del nuevo lead con el nuevo turno
+    // Insertar al nuevo lead con el turno correspondiente
     const { data: lead, error: supabaseError } = await supabase
       .from('leads')
       .insert([{ name, email, phone, ultimo_destinatario: nuevoTurno }]);
@@ -77,9 +70,8 @@ app.post('/register', async (req, res) => {
       return res.status(500).json({ error: 'Error al guardar los datos en la base de datos.' });
     }
 
-    // Generar el HTML del correo
+    // Generar correo HTML
     const emailHtml = await render(ConfirmationEmail({ name }));
-
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
@@ -90,7 +82,7 @@ app.post('/register', async (req, res) => {
         from: 'ZENA@zenacentrodecompetencia.com',
         to: email,
         subject: '¡Tu registro al Seminario “Plan de Carrera Profesional” ha sido confirmado!',
-        html: emailHtml,
+        html: emailHtml
       })
     });
 
@@ -101,16 +93,13 @@ app.post('/register', async (req, res) => {
       return res.status(500).json({ error: 'Error al enviar el correo de confirmación.', details: resendData });
     }
 
-    // Retornar éxito con link de WhatsApp dinámico
     res.status(200).json({
       message: '✅ Registro exitoso y correo enviado.',
-      lead,
-      resendData,
       linkWhatsapp
     });
 
   } catch (error) {
-    console.error('❌ Error inesperado en /register:', error);
+    console.error("❌ Error inesperado en /register:", error);
     res.status(500).json({ error: 'Error inesperado en el servidor.', details: error.message });
   }
 });
