@@ -58,7 +58,7 @@ app.post('/register', async (req, res) => {
     const last = lastLead?.ultimo_destinatario || 'ana';
     const nuevoTurno = last === 'ana' ? 'zeki' : 'ana';
 
-    const linkWhatsapp = nuevoTurno === 'zeki'
+    const linkWhatsapp = nuevoTurno === 'ana'
       ? 'https://wa.link/ts8jkl'
       : 'https://wa.link/kl4qxg';
 
