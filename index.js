@@ -22,7 +22,10 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/register', async (req, res) => {
+  console.log("📩 Datos recibidos:", req.body);
+
   const { name, email, phone } = req.body;
+
   if (!name || !email || !phone) {
     return res.status(400).json({ error: '❌ Todos los campos son requeridos.' });
   }
@@ -36,35 +39,42 @@ app.post('/register', async (req, res) => {
       .single();
 
     if (searchError && searchError.code !== 'PGRST116') {
-      return res.status(500).json({ error: 'Error al verificar el correo.' });
+      console.error("⚠️ Error en Supabase (búsqueda):", searchError);
+      return res.status(500).json({ error: 'Error al verificar el correo en la base de datos.' });
     }
 
     if (existingUser) {
-      return res.status(400).json({ error: '⚠️ El correo ya está registrado.' });
+      return res.status(400).json({ error: '⚠️ El correo electrónico ya está registrado.' });
     }
 
-    // ✅ Obtener el último destinatario insertado para alternar
-    const { data: lastLead } = await supabase
+    // Obtener el último destinatario registrado en la tabla leads
+    const { data: lastLead, error: lastLeadError } = await supabase
       .from('leads')
       .select('ultimo_destinatario')
       .order('id', { ascending: false })
       .limit(1)
       .single();
 
-    const last = lastLead?.ultimo_destinatario;
-    const nuevoTurno = last === 'ana' ? 'zeki' : 'ana';
+    if (lastLeadError) {
+      console.error("⚠️ Error al obtener el último destinatario:", lastLeadError);
+      return res.status(500).json({ error: 'Error al verificar último destinatario.' });
+    }
+
+    const lastTurn = lastLead?.ultimo_destinatario || 'ana';
+    const nuevoTurno = lastTurn === 'ana' ? 'zeki' : 'ana';
 
     const linkWhatsapp = nuevoTurno === 'ana'
       ? 'https://wa.link/ts8jkl' // Ana
       : 'https://wa.link/kl4qxg'; // Zeki
 
-    // ✅ Insertar el lead con el turno asignado
-    const { data: inserted, error: insertError } = await supabase
+    // Guardar los datos del nuevo lead con el nuevo turno
+    const { data: lead, error: supabaseError } = await supabase
       .from('leads')
       .insert([{ name, email, phone, ultimo_destinatario: nuevoTurno }]);
 
-    if (insertError) {
-      return res.status(500).json({ error: 'Error al guardar en Supabase.' });
+    if (supabaseError) {
+      console.error("⚠️ Error en Supabase (inserción):", supabaseError);
+      return res.status(500).json({ error: 'Error al guardar los datos en la base de datos.' });
     }
 
     // Generar el HTML del correo
@@ -87,20 +97,24 @@ app.post('/register', async (req, res) => {
     const resendData = await response.json();
 
     if (!response.ok) {
-      return res.status(500).json({ error: 'Error al enviar correo.', details: resendData });
+      console.error("⚠️ Error en Resend:", resendData);
+      return res.status(500).json({ error: 'Error al enviar el correo de confirmación.', details: resendData });
     }
 
+    // Retornar éxito con link de WhatsApp dinámico
     res.status(200).json({
       message: '✅ Registro exitoso y correo enviado.',
+      lead,
+      resendData,
       linkWhatsapp
     });
 
   } catch (error) {
-    console.error('❌ Error inesperado:', error);
+    console.error('❌ Error inesperado en /register:', error);
     res.status(500).json({ error: 'Error inesperado en el servidor.', details: error.message });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Backend corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Servidor backend corriendo en http://localhost:${PORT}`);
 });
