@@ -55,7 +55,7 @@ app.post('/register', async (req, res) => {
       .limit(1)
       .maybeSingle();
 
-    const last = lastLead?.ultimo_destinatario || 'zeki';
+    const last = lastLead?.ultimo_destinatario || 'ana';
     const nuevoTurno = last === 'ana' ? 'zeki' : 'ana';
 
     const linkWhatsapp = nuevoTurno === 'ana'
