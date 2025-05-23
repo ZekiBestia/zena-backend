@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_KEY || !process.env.RESEND_API_KEY) {
-  console.error("⚠️ ERROR: Faltan variables de entorno en el archivo .env");
+  console.error("⚠️ ERROR: Faltan variables de entorno en .env");
   process.exit(1);
 }
 
@@ -22,57 +22,57 @@ app.use(cors());
 app.use(express.json());
 
 app.post('/register', async (req, res) => {
-  console.log("📩 Datos recibidos:", req.body);
   const { name, email, phone } = req.body;
+  console.log("📩 Datos recibidos:", req.body);
 
   if (!name || !email || !phone) {
-    return res.status(400).json({ error: '❌ Todos los campos son requeridos.' });
+    return res.status(400).json({ error: 'Todos los campos son requeridos.' });
   }
 
   try {
-    const { data: existingUser, error: searchError } = await supabase
+    // Validar si el correo ya existe
+    const { data: existingUser, error: findError } = await supabase
       .from('leads')
       .select('email')
       .eq('email', email)
-      .single();
+      .maybeSingle();
 
-    if (searchError && searchError.code !== 'PGRST116') {
-      console.error("⚠️ Error en Supabase (búsqueda):", searchError);
-      return res.status(500).json({ error: 'Error al verificar el correo en la base de datos.' });
+    if (findError) {
+      console.error("🔴 Error al buscar correo:", findError);
+      return res.status(500).json({ error: 'Error al validar el correo.' });
     }
 
     if (existingUser) {
-      return res.status(400).json({ error: '⚠️ El correo electrónico ya está registrado.' });
+      return res.status(400).json({ error: 'Este correo ya fue registrado.' });
     }
 
-    // Obtener el último destinatario válido
-    const { data: lastLeads, error: lastLeadError } = await supabase
+    // Obtener último registro válido con campo 'ultimo_destinatario'
+    const { data: lastLead, error: lastError } = await supabase
       .from('leads')
       .select('ultimo_destinatario')
       .not('ultimo_destinatario', 'is', null)
       .order('id', { ascending: false })
-      .limit(1);
+      .limit(1)
+      .maybeSingle();
 
-    if (lastLeadError) {
-      console.error("⚠️ Error al obtener último destinatario:", lastLeadError);
-    }
+    const last = lastLead?.ultimo_destinatario || 'zeki';
+    const nuevoTurno = last === 'ana' ? 'zeki' : 'ana';
 
-    const last = lastLeads?.[0]?.ultimo_destinatario || "zeki";
-    const nuevoTurno = last === "ana" ? "zeki" : "ana";
+    const linkWhatsapp = nuevoTurno === 'ana'
+      ? 'https://wa.link/ts8jkl'
+      : 'https://wa.link/kl4qxg';
 
-    const linkWhatsapp = nuevoTurno === "ana"
-      ? "https://wa.link/ts8jkl"
-      : "https://wa.link/kl4qxg";
-
-    const { data: lead, error: supabaseError } = await supabase
+    // Guardar nuevo lead con el turno correcto
+    const { error: insertError } = await supabase
       .from('leads')
       .insert([{ name, email, phone, ultimo_destinatario: nuevoTurno }]);
 
-    if (supabaseError) {
-      console.error("⚠️ Error en Supabase (inserción):", supabaseError);
-      return res.status(500).json({ error: 'Error al guardar los datos en la base de datos.' });
+    if (insertError) {
+      console.error("🔴 Error al insertar lead:", insertError);
+      return res.status(500).json({ error: 'No se pudo registrar el lead.' });
     }
 
+    // Enviar correo
     const emailHtml = await render(ConfirmationEmail({ name }));
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -83,7 +83,7 @@ app.post('/register', async (req, res) => {
       body: JSON.stringify({
         from: 'ZENA@zenacentrodecompetencia.com',
         to: email,
-        subject: '¡Tu registro al Seminario “Plan de Carrera Profesional” ha sido confirmado!',
+        subject: '✅ Confirmación de registro al seminario',
         html: emailHtml
       })
     });
@@ -91,21 +91,22 @@ app.post('/register', async (req, res) => {
     const resendData = await response.json();
 
     if (!response.ok) {
-      console.error("⚠️ Error en Resend:", resendData);
-      return res.status(500).json({ error: 'Error al enviar el correo de confirmación.', details: resendData });
+      console.error("🔴 Error al enviar correo:", resendData);
+      return res.status(500).json({ error: 'Fallo al enviar confirmación por correo.' });
     }
 
+    // Respuesta al frontend
     res.status(200).json({
-      message: '✅ Registro exitoso y correo enviado.',
+      message: '✅ Registro exitoso.',
       linkWhatsapp
     });
 
   } catch (error) {
-    console.error("❌ Error inesperado en /register:", error);
-    res.status(500).json({ error: 'Error inesperado en el servidor.', details: error.message });
+    console.error("❌ Error inesperado:", error);
+    res.status(500).json({ error: 'Error en el servidor.', details: error.message });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Servidor backend corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Backend corriendo en http://localhost:${PORT}`);
 });
