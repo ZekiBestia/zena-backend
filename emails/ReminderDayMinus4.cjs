@@ -1,7 +1,7 @@
 const React = require("react");
 const { Html, Head, Body, Text, Section, Container, Heading, Button, Link, Hr, Img } = require("@react-email/components");
 
-const ReminderDayMinus3 = ({ name }) => {
+const ReminderDayMinus4 = ({ name }) => {
     return React.createElement(
         Html,
         null,
@@ -30,21 +30,20 @@ const ReminderDayMinus3 = ({ name }) => {
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginBottom: '20px' } },
-                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } }, "¡Faltan solo 3 días para el Seminario 'Plan de Carrera Profesional'!"),
+                    React.createElement(Heading, { style: { fontSize: '24px', color: '#dc3545' } }, "¡Faltan solo 4 días para el Seminario 'Plan de Carrera Profesional'!"),
                     React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, `Hola ${name},`)
                 ),
 
-                // Contenido principal
+                // Contenido principal actualizado
                 React.createElement(
                     Section,
                     null,
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Estamos a solo 3 días de iniciar el Seminario 'Plan de Carrera Profesional', una oportunidad única para potenciar tu crecimiento profesional con el respaldo de Microsoft y Open English."),
-                    React.createElement(Text, { style: { marginTop: '10px', fontSize: '16px', lineHeight: '1.5' } }, "📌 Lo que aprenderás en este seminario:"),
-                    React.createElement(Text, null, "✅ Cómo estructurar un Plan de Carrera Profesional para acceder a mejores sueldos y posiciones de liderazgo."),
-                    React.createElement(Text, null, "✅ Cómo las certificaciones internacionales y herramientas digitales pueden abrirte puertas en empresas globales."),
-                    React.createElement(Text, null, "✅ Por qué las empresas valoran cada vez más el dominio del inglés profesional y cómo mejorar tus oportunidades laborales."),
-                    React.createElement(Text, null, "✅ Cómo usar la tecnología y la inteligencia artificial para evaluar y mejorar tus competencias."),
-                    React.createElement(Text, { style: { marginTop: '10px' } }, "🔹 Este seminario, en colaboración con Microsoft y Open English, te brindará las herramientas que necesitas para avanzar en tu carrera.")
+                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Estamos cada vez más cerca del inicio del Seminario 'Plan de Carrera Profesional', una experiencia transformadora en la que descubrirás cómo llevar tu perfil profesional al siguiente nivel."),
+                    React.createElement(Text, { style: { marginTop: '10px', fontSize: '16px', lineHeight: '1.5' } }, "📋 Aquí tienes algunos consejos para prepararte de la mejor forma:"),
+                    React.createElement(Text, null, "🔍 Reflexiona sobre tus metas a corto y largo plazo. Esto te ayudará a darle sentido a cada aprendizaje."),
+                    React.createElement(Text, null, "📝 Ten a la mano libreta y bolígrafo para anotar ideas clave y recursos valiosos."),
+                    React.createElement(Text, null, "📎 Si ya trabajas o estudias, piensa en cómo aplicarás lo aprendido en tu contexto actual."),
+                    React.createElement(Text, null, "🎯 Mantente enfocado: evita distracciones y organiza tu agenda para estar 100% presente.")
                 ),
 
                 // Detalles del evento
@@ -118,7 +117,7 @@ const ReminderDayMinus3 = ({ name }) => {
                 React.createElement(
                     Section,
                     { style: { textAlign: 'center', marginBottom: '20px', marginTop: '30px' } },
-                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Nos vemos en 3 días en ZOOM. ¡No dejes pasar la oportunidad de llevar tu carrera al siguiente nivel!"),
+                    React.createElement(Text, { style: { fontSize: '16px', lineHeight: '1.5' } }, "Nos vemos en 4 días en ZOOM. ¡Prepárate para vivir una experiencia que transformará tu camino profesional!"),
                     React.createElement(Hr, { style: { borderColor: '#ddd', margin: '20px 0' } }),
                     React.createElement(Img, {
                         src: "https://kubsycsxqsuoevqckjkm.supabase.co/storage/v1/object/public/PCP//Firma.png",
@@ -131,7 +130,8 @@ const ReminderDayMinus3 = ({ name }) => {
                             display: 'block'
                         }
                     }),
-                   
+
+                    // Redes sociales
                     React.createElement(
                         Section,
                         { style: { textAlign: 'center', marginTop: '20px' } },
@@ -150,7 +150,7 @@ const ReminderDayMinus3 = ({ name }) => {
                             Link,
                             { href: "https://t.me/+TOkq1Pvv8YUzZmEx", style: { margin: '0 5px', textDecoration: 'none' } },
                             React.createElement(Img, {
-                                src: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png", 
+                                src: "https://cdn-icons-png.flaticon.com/512/2111/2111646.png",
                                 alt: "Telegram",
                                 width: "24",
                                 height: "24",
@@ -182,4 +182,4 @@ const ReminderDayMinus3 = ({ name }) => {
     );
 };
 
-module.exports = ReminderDayMinus3;
+module.exports = ReminderDayMinus4;
