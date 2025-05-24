@@ -53,7 +53,7 @@ const ReminderDayMinus3 = ({ name }) => {
                     { style: { marginTop: '20px' } },
                     React.createElement(Heading, { style: { fontSize: '20px', color: '#333' } }, "📅 Detalles del Evento"),
                     React.createElement(Text, null, "📍 Fecha: 26 de Mayo del 2025"),
-                    React.createElement(Text, null, "🕒 Hora: 7:00 pm"),
+                    React.createElement(Text, null, "🕒 Hora: 7:00 pm (Hora CDMX)"),
                     React.createElement(Text, null, "💻 Plataforma: ZOOM"),
                     React.createElement(
                         Button,
