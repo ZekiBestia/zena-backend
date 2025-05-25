@@ -58,7 +58,7 @@ const ReminderDayMinus1 = ({ name }) => {
                     React.createElement(
                         Button,
                         {
-                            href: "https://us06web.zoom.us/meeting/register/JOXo1ZF6TSCUqM6Xdkj5mQ",
+                            href: "https://us06web.zoom.us/meeting/register/LmqIdW67TLWN-WyMfZKm9w#/registration",
                             style: {
                                 display: 'inline-block',
                                 padding: '10px 30px',
@@ -72,24 +72,6 @@ const ReminderDayMinus1 = ({ name }) => {
                         },
                         "👉 Da clic para acceder a la sesión de ZOOM"
                     ),
-                    React.createElement(Text, { style: { marginTop: '10px' } }, "⚠️ Sala alterna (en caso de que la principal esté llena):"),
-                    React.createElement(
-                        Button,
-                        {
-                            href: "https://us06web.zoom.us/meeting/register/josihPlRQP6WFbEqHvQ6vQ",
-                            style: {
-                                display: 'inline-block',
-                                padding: '10px 30px',
-                                backgroundColor: '#6c757d',
-                                color: '#ffffff',
-                                textDecoration: 'none',
-                                borderRadius: '5px',
-                                fontSize: '16px',
-                                textAlign: 'center'
-                            }
-                        },
-                        "👉 Da clic para acceder a la sesión en la sala alterna"
-                    )
                 ),
 
                 // Preparación

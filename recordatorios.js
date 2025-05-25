@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const ReminderDayMinus3 = require('./emails/ReminderDayMinus3.cjs'); // <--- NUEVO
+const ReminderDayMinus1 = require('./emails/ReminderDayMinus1.cjs'); // <--- NUEVO
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -51,18 +51,18 @@ async function sendLiveReminderIfApplicable() {
 
   console.log(`📅 Fecha actual en CDMX: ${date}`);
 
-  if (hour === 9 && minutes === 10 && date.getDate() === 24 && date.getMonth() === 4) {
+  if (hour === 9 && minutes === 10 && date.getDate() === 25 && date.getMonth() === 4) {
     await sendReminder(
-      ReminderDayMinus3,
-      '📣 ¡Faltan 3 días para el Seminario "Plan de Carrera Profesional"!'
+      ReminderDayMinus1,
+      '📣 ¡Falta 1 día para el Seminario "Plan de Carrera Profesional"!'
     );
   } else {
     console.log('ℹ️ No se debe enviar el recordatorio en este momento.');
   }
 }
 
-cron.schedule('10 09 24 5 *', async () => {
-  console.log('⏰ Ejecutando recordatorio de 4 días a las 9:40 p.m. (23 mayo)');
+cron.schedule('10 09 25 5 *', async () => {
+  console.log('⏰ Ejecutando recordatorio de 1 días a las 9:10 p.m. (25 mayo)');
   await sendLiveReminderIfApplicable();
 }, { timezone: 'America/Mexico_City' });
 
