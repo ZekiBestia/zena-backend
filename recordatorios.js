@@ -53,7 +53,7 @@ async function sendLiveReminderIfApplicable() {
 
   if (hour === 9 && minutes === 10 && date.getDate() === 26 && date.getMonth() === 4) {
     await sendReminder(
-      ReminderDayMinus1,
+      ReminderSession1,
       '📣 ¡Hoy es la sesión 1 del Seminario Plan de Carrera Profesional!'
     );
   } else {
@@ -62,7 +62,7 @@ async function sendLiveReminderIfApplicable() {
 }
 
 cron.schedule('10 09 26 5 *', async () => {
-  console.log('⏰ Ejecutando recordatorio de 1 días a las 9:10 p.m. (25 mayo)');
+  console.log('⏰ Ejecutando recordatorio de 1 días a las 9:10 a.m. (25 mayo)');
   await sendLiveReminderIfApplicable();
 }, { timezone: 'America/Mexico_City' });
 
