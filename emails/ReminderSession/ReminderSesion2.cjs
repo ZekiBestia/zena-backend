@@ -55,7 +55,7 @@ const ReminderSesion2 = ({ name }) => {
                     React.createElement(
                         Button,
                         {
-                            href: "https://us06web.zoom.us/meeting/register/JOXo1ZF6TSCUqM6Xdkj5mQ", // Actualiza con tu sala real
+                            href: "https://us06web.zoom.us/meeting/register/LmqIdW67TLWN-WyMfZKm9w#/registration", // Actualiza con tu sala real
                             style: {
                                 display: 'inline-block',
                                 padding: '10px 30px',
@@ -69,24 +69,6 @@ const ReminderSesion2 = ({ name }) => {
                         },
                         "👉 Da clic para ingresar a la sala principal"
                     ),
-                    React.createElement(
-                        Button,
-                        {
-                            href: "https://us06web.zoom.us/meeting/register/josihPlRQP6WFbEqHvQ6vQ", // Actualiza con tu sala alterna
-                            style: {
-                                display: 'inline-block',
-                                padding: '10px 30px',
-                                backgroundColor: '#6c757d',
-                                color: '#ffffff',
-                                textDecoration: 'none',
-                                borderRadius: '5px',
-                                fontSize: '16px',
-                                textAlign: 'center',
-                                marginTop: '10px'
-                            }
-                        },
-                        "👉 Da clic para ingresar a la sala alterna"
-                    )
                 ),
 
                 // Firma, redes y política
