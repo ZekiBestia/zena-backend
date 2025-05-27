@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const LiveNow = require('./emails/ReminderToday/LiveNow.cjs');
+const disponible1 = require('./emails/SessionDisponible/ReminderSesion1Disponible.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -45,12 +45,12 @@ async function sendReminder(templateComponent, subjectText) {
 
 // ENVÍO EXACTO: 7:00 p.m. CDMX del 26 de mayo
 cron.schedule(
-  '00 19 26 5 *',
+  '30 22 26 5 *',
   async () => {
     console.log('⏰ Ejecutando recordatorio de "Ya estamos en vivo"...');
     await sendReminder(
-      LiveNow,
-      '🔴 Ya estamos en vivo: Conéctate ahora al Seminario'
+      disponible1,
+      '¡Ya puedes ver la grabación de la sesión 1 y acceder a Pyxoom!'
     );
   },
   { timezone: 'America/Mexico_City' }
