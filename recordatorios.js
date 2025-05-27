@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const recordatorio2 = require('./emails/ReminderSession/ReminderSesion2.cjs');
+const falta1 = require('./emails/ReminderToday/ReminderOneHour.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -45,12 +45,12 @@ async function sendReminder(templateComponent, subjectText) {
 
 // ENVÍO EXACTO: 7:00 p.m. CDMX del 26 de mayo
 cron.schedule(
-  '30 09 27 5 *',
+  '01 18 27 5 *',
   async () => {
     console.log('⏰ Ejecutando recordatorio de "Ya estamos en vivo"...');
     await sendReminder(
-      recordatorio2,
-      '!Hoy es la Sesion 2!'
+      falta1,
+      'Falta 1 hora para la Sesion 2'
     );
   },
   { timezone: 'America/Mexico_City' }
