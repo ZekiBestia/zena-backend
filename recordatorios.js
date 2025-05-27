@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const ReminderSession1 = require('./emails/ReminderSession/ReminderSession1.cjs'); // <--- NUEVO
+const Reminder25Minutes = require('./emails/ReminderToday/Reminder25Minutes.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -38,32 +38,23 @@ async function sendReminder(templateComponent, subjectText) {
     } catch (error) {
       console.error(`❌ Error con ${lead.email}:`, error.message);
     }
-    await delay(500);
+    await delay(500); // Para evitar límites de envío
   }
   console.log(`✔ Envío finalizado: ${subjectText}`);
 }
 
-async function sendLiveReminderIfApplicable() {
-  const now = new Date().toLocaleString('en-US', { timeZone: 'America/Mexico_City' });
-  const date = new Date(now);
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
-
-  console.log(`📅 Fecha actual en CDMX: ${date}`);
-
-  if (hour === 9 && minutes === 10 && date.getDate() === 26 && date.getMonth() === 4) {
+// ENVÍO ÚNICO: 25 minutos antes (26 de mayo, 18:50 CDMX)
+cron.schedule(
+  '50 18 26 5 *',
+  async () => {
+    console.log('⏰ Ejecutando envío de Reminder 25 minutos antes del seminario...');
     await sendReminder(
-      ReminderSession1,
-      '📣 ¡Hoy es la sesión 1 del Seminario Plan de Carrera Profesional!'
+      Reminder25Minutes,
+      '📣 Faltan 10 minutos para iniciar el seminario'
     );
-  } else {
-    console.log('ℹ️ No se debe enviar el recordatorio en este momento.');
-  }
-}
+  },
+  { timezone: 'America/Mexico_City' }
+);
 
-cron.schedule('10 09 26 5 *', async () => {
-  console.log('⏰ Ejecutando recordatorio de 1 días a las 9:10 a.m. (25 mayo)');
-  await sendLiveReminderIfApplicable();
-}, { timezone: 'America/Mexico_City' });
-
-module.exports = { sendLiveReminderIfApplicable };
+// Si quieres exportar la función manual
+module.exports = { sendReminder };
