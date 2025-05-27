@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const Reminder25Minutes = require('./emails/ReminderToday/Reminder25Minutes.cjs');
+const LiveNow = require('./emails/ReminderToday/LiveNow.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
@@ -38,23 +38,22 @@ async function sendReminder(templateComponent, subjectText) {
     } catch (error) {
       console.error(`❌ Error con ${lead.email}:`, error.message);
     }
-    await delay(500); // Para evitar límites de envío
+    await delay(500);
   }
   console.log(`✔ Envío finalizado: ${subjectText}`);
 }
 
-// ENVÍO ÚNICO: 25 minutos antes (26 de mayo, 18:50 CDMX)
+// ENVÍO EXACTO: 7:00 p.m. CDMX del 26 de mayo
 cron.schedule(
-  '50 18 26 5 *',
+  '00 19 26 5 *',
   async () => {
-    console.log('⏰ Ejecutando envío de Reminder 25 minutos antes del seminario...');
+    console.log('⏰ Ejecutando recordatorio de "Ya estamos en vivo"...');
     await sendReminder(
-      Reminder25Minutes,
-      '📣 Faltan 10 minutos para iniciar el seminario'
+      LiveNow,
+      '🔴 Ya estamos en vivo: Conéctate ahora al Seminario'
     );
   },
   { timezone: 'America/Mexico_City' }
 );
 
-// Si quieres exportar la función manual
 module.exports = { sendReminder };
