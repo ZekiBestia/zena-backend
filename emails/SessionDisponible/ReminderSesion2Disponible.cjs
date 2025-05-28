@@ -58,7 +58,7 @@ const ReminderSesion2Disponible = ({ name }) => {
           React.createElement(
             Button,
             {
-              href: "https://registro.zenacentrodecompetencia.com/sesion-2/",
+              href: "https://sesiones.zenacentrodecompetencia.com/",
               style: {
                 backgroundColor: "#0956B5",
                 color: "#ffffff",
