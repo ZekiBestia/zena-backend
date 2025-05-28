@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { createClient } = require('@supabase/supabase-js');
 const { Resend } = require('resend');
-const disponible2 = require('./emails/SessionDisponible/ReminderSesion2Disponible.cjss');
+const disponible2 = require('./emails/SessionDisponible/ReminderSesion2Disponible.cjs');
 const { render } = require('@react-email/render');
 const cron = require('node-cron');
 
