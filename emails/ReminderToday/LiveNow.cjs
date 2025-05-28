@@ -61,7 +61,7 @@ const LiveNow = ({ name }) => {
           React.createElement(
             Heading,
             { style: { fontSize: "22px", color: "#E11D48" } },
-            "🔴 ¡Ya estamos en vivo! Conéctate ahora a la Sesión 1"
+            "🔴 ¡Ya estamos en vivo! Conéctate ahora a la Sesión 2"
           ),
           React.createElement(Text, { style: { fontSize: "16px", lineHeight: "1.5" } }, `Hola ${name},`)
         ),
@@ -70,9 +70,12 @@ const LiveNow = ({ name }) => {
         React.createElement(
           Section,
           null,
-          React.createElement(Text, { style: { fontSize: "16px", lineHeight: "1.5" } }, "Ya estamos en vivo con la Sesión 1 del Seminario *Plan de Carrera Profesional*, organizado por **Open English** e **ICEMéxico**."),
-          React.createElement(Text, null, "En esta sesión conocerás el caso práctico de un profesionista que logró duplicar su salario gracias a un plan de carrera bien estructurado y enfocado en sus fortalezas y áreas de desarrollo."),
-          React.createElement(Text, null, "Aún estás a tiempo de ingresar y aprovechar al máximo esta oportunidad de crecimiento profesional.")
+          React.createElement(Text, { style: { fontSize: "16px", lineHeight: "1.5" } },
+            "Ya estamos en vivo con la *Sesión 2* del Seminario **Plan de Carrera Profesional**, organizado por **Open English** e **ICEMéxico**."),
+          React.createElement(Text, null,
+            "Hoy aprenderás a identificar, diseñar y ejecutar un proyecto de mejora dentro de tu empresa, que impacte y posicione tu perfil para un ascenso o un cambio de empleo."),
+          React.createElement(Text, null,
+            "¡Estás a tiempo de entrar y aprovechar esta sesión que puede marcar un antes y un después en tu desarrollo profesional!")
         ),
 
         // Botón Zoom
