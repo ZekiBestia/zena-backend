@@ -70,9 +70,9 @@ const ReminderOneHour = ({ name }) => {
         React.createElement(
           Section,
           null,
-          React.createElement(Text, null, "En tan solo una hora daremos inicio a la *Sesión 2* del Seminario **Plan de Carrera Profesional**."),
-          React.createElement(Text, null, "Esta sesión está diseñada para ayudarte a identificar, diseñar y ejecutar un proyecto de mejora dentro de tu empresa que impacte y posicione tu perfil."),
-          React.createElement(Text, null, "📅 Hoy, martes 27 de mayo"),
+          React.createElement(Text, null, "En tan solo una hora daremos inicio a la *Sesión 3* del Seminario **Plan de Carrera Profesional**."),
+          React.createElement(Text, null, "Descubre las mejores técnicas de negociación laboral, tanto para entrevistas de nuevo ingreso como para solicitar un aumento de sueldo con argumentos sólidos."),
+          React.createElement(Text, null, "📅 Hoy, miercoles 28 de mayo"),
           React.createElement(Text, null, "🕖 7:00 p.m. (hora centro de México)")
         ),
 
