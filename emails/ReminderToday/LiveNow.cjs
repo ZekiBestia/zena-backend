@@ -71,9 +71,9 @@ const LiveNow = ({ name }) => {
           Section,
           null,
           React.createElement(Text, { style: { fontSize: "16px", lineHeight: "1.5" } },
-            "Ya estamos en vivo con la *Sesión 2* del Seminario **Plan de Carrera Profesional**, organizado por **Open English** e **ICEMéxico**."),
+            "Ya estamos en vivo con la *Sesión 3* del Seminario **Plan de Carrera Profesional**, organizado por **Open English** e **ICEMéxico**."),
           React.createElement(Text, null,
-            "Hoy aprenderás a identificar, diseñar y ejecutar un proyecto de mejora dentro de tu empresa, que impacte y posicione tu perfil para un ascenso o un cambio de empleo."),
+            "Descubre las mejores técnicas de negociación laboral, tanto para entrevistas de nuevo ingreso como para solicitar un aumento de sueldo con argumentos sólidos."),
           React.createElement(Text, null,
             "¡Estás a tiempo de entrar y aprovechar esta sesión que puede marcar un antes y un después en tu desarrollo profesional!")
         ),
