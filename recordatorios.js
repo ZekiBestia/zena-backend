@@ -45,7 +45,7 @@ async function sendReminder(templateComponent, subjectText) {
 
 // ENVÍO EXACTO: 7:00 p.m. CDMX del 26 de mayo
 cron.schedule(
-  '35 9 29 5 *',
+  '0 10 29 5 *',
   async () => {
     console.log('⏰ Ejecutando recordatorio de "Ya estamos en vivo"...');
     await sendReminder(
